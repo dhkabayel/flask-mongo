@@ -46,8 +46,8 @@ def signin():
         signin_user = users.find_one({'username': request.form['username']})
 
         if signin_user:
-            if bcrypt.hashpw(request.form['password'].encode('utf-8'), signin_user['password'].encode('utf-8')) == \
-                    signin_user['password'].encode('utf-8'):
+            if user is not None and bcrypt.checkpw(request.form['password'].encode('utf-8'), user['password']):
+
                 session['username'] = request.form['username']
                 return redirect(url_for('index'))
 
